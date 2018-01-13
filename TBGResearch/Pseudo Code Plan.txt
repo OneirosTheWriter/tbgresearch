@@ -107,11 +107,18 @@ Class Vote
 End Class
 
 Class ResearchProcessor
+	List<ResearchResult> ProcessMaster() - The main research process
 End Class
 
 Class ResarchResult
+	string EntityId
+	EntityStateOfArt
+	List<ProgressFrame> UpdatedFrames
 End Class
 
 Class LayoutEngine
+	string CreateResearchMasterPost()
+	string CreateResultPost()
+	string CreateOptionsTemplate()
 End Class
 	

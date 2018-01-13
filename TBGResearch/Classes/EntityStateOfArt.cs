@@ -31,6 +31,13 @@ namespace TBGResearch.Classes
             }
         }
 
+        private List<ResearchBonus> _admiralBonuses = new List<ResearchBonus>();
+        public List<ResearchBonus> AdmiralBonuses
+        {
+            get { return _admiralBonuses; }
+            set { _admiralBonuses = value; }
+        }
+
         // === Methods ===
 
         public void Init ()

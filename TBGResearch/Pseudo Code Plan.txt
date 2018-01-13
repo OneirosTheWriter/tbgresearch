@@ -75,6 +75,7 @@ Struct ComponentLine
 	int RequiredResearch
 	string ShortName
 	string FlavourName
+	string Reward
 End Struct
 
 Class ComponentProgressLine

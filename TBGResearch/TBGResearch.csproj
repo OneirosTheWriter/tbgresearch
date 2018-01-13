@@ -48,6 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\ResearchBonus.cs" />
     <Compile Include="Classes\Entity.cs" />
     <Compile Include="Classes\EntityStateOfArt.cs" />
     <Compile Include="Classes\Master.cs" />

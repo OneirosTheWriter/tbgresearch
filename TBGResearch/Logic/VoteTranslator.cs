@@ -54,7 +54,7 @@ namespace TBGResearch.Logic
                         {
                             team.Trim();
                             TechTeam techTeam = votedOn.Teams.Find(tt => tt.IdTag == team);
-                            techTeam.AssignedBoosts += 1;
+                            if (techTeam != null) techTeam.AssignedBoosts += 1;
                         }
 
                     }

@@ -8,7 +8,7 @@ using TBGResearch.Classes;
 
 namespace TBGResearch.Logic
 {
-    public class LayoutEngine
+    class LoadSaveLogic
     {
     }
 }

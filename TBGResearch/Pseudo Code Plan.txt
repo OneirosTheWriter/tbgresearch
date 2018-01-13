@@ -107,8 +107,8 @@ End Class
 
 Class Vote
 	string RawVote
-	Dictionary<TechTeam, ResearchFrame> Result
-	void ProcessIncomingVote(string raw)
+	Dictionary<TechTeam, ResearchFrame> ParsedVote
+	bool ProcessIncomingVote(string raw)
 End Class
 
 Class ResearchProcessor

@@ -52,6 +52,7 @@
     <Compile Include="Classes\EntityStateOfArt.cs" />
     <Compile Include="Classes\Master.cs" />
     <Compile Include="Classes\PartType.cs" />
+    <Compile Include="Classes\ProgressFrame.cs" />
     <Compile Include="Classes\ResearchFrame.cs" />
     <Compile Include="Classes\ResearchResult.cs" />
     <Compile Include="Classes\TechPriority.cs" />
@@ -78,6 +79,7 @@
       <DependentUpon>VoteForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Logic\LayoutEngine.cs" />
+    <Compile Include="Logic\LoadSaveLogic.cs" />
     <Compile Include="Logic\ResearchProcessor.cs" />
     <Compile Include="Logic\VoteTranslator.cs" />
     <Compile Include="MainForm.cs">

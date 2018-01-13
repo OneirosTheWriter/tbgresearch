@@ -35,6 +35,8 @@ Class Entity
 	List<Team> Teams - A collection of Tech teams that belong to this Entity
 	EntityStateOfArt Status - Current research status
 	Dictionary<TechTeam, ResearchFrame> - Stores ongoing TechTeam assignments
+	TechPriority Priority - Contains details for picking future research
+	bool IsManualVoteControlled - is this controlled manually, or by vote
 End Class
 
 Class Team
@@ -84,7 +86,7 @@ End Class
 Class TechPriority
 	EntityStateOfArt Status - A link to the current state of art so Completed or Inaccessible techs can be marked as 0 Weight
 	double LandmarkTechPriority
-	double <x>PartTechPriority - a bunch of properties here for each part 
+	Dictionary<PartType, double> PartTechPriority - a bunch of properties here for each part 
 	double Unmap(PartType type) - Return a particular part type 
 	double AssignPriority(ResearchFrame target) - Returns an appropriate ResearchPriority
 End Class

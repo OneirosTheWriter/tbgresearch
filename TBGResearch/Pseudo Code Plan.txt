@@ -1,1 +1,117 @@
-﻿
+﻿References:
+	NewtonSoft.Json - Use this for managing our Json requirements
+
+Classes:
+	Master - Contains the global list of Entities and TechTrees
+	Entity - A species/local power
+	Team - A tech team with a name, skill, prefs
+	TechTree - A contained section of research Frames with a branching set of pre-requisites 
+	EntityStateOfArt - Contains a cut down version of the research frames storing their current research progress
+	ResearchFrame - An individual research frame with a set of component techs
+	ComponentLine - A small struct containing requirement and name
+	TechPriority - Contains the weighting details for given parts/types for a political entity
+	Vote - Translates an incoming human vote and exposes it in a manner that the ResearchProcessor can interpret
+	ResearchProcessor - Responsible for bringing it all together and producing a ResearchResult
+	ResearchResult - Stores the result details of a processed research turn
+	LayoutEngine - Responsible for taking results and turning them into BBCode posts
+
+Enums:
+	PartType
+	TechTreeType
+
+Forms:
+	MainForm - 
+	VoteForm - Read in a text block, pass to Vote for processing
+	EntityForm - Iterate through the list of Entities, access their Team list, access their TechPriority
+	ResearchForm - View and edit the saved JSON
+
+Class Master
+	List<Entity> Entities - The global Entity list
+	List<TechTree> Trees - The global Tech Tree list
+End Class
+
+Class Entity
+	string Name - Name of this power
+	List<Team> Teams - A collection of Tech teams that belong to this Entity
+	EntityStateOfArt Status - Current research status
+	Dictionary<TechTeam, ResearchFrame> - Stores ongoing TechTeam assignments
+End Class
+
+Class Team
+	string Name
+	string LogoUrl
+	int Skill
+	TechTreeType Pref1 - The two preferred areas
+	TechTreeType Pref2 - This may be -1 if only one preferred area exists
+End Class
+
+Class TechTree
+	string Name
+	TechTreeType TechType - The type of this Tech Tree (i.e., Warp, Shields) for Preference matching
+	ResearchFrame Root - The base "Turn of the Century" tech frame
+	List<ResearchFrame> MasterList - The full master list maintained for importing and exporting
+	ResearchFrame Find(string idTag) - Get a frame based on the idtag for help iterating
+End Class
+
+Class ResearchFrame
+	string IdTag
+	string Name
+	string Description
+	List<ComponentLine> Lines 
+	List<string> Prereqs - A list of IdTags
+	List<string> LeadsTo - A list of IdTags
+	TechTreeType Tree - For ease of updating Priorities
+	PartType - For updating priorities
+	string Result - What will be unlocked if Frame is completed
+	bool IsLandmark - Is this a landmark tech like Isolinear?
+End Class
+
+Struct ComponentLine
+	int RequiredResearch
+	string ShortName
+	string FlavourName
+End Struct
+
+Class TechPriority
+	EntityStateOfArt Status - A link to the current state of art so Completed or Inaccessible techs can be marked as 0 Weight
+	double LandmarkTechPriority
+	double <x>PartTechPriority - a bunch of properties here for each part 
+	double Unmap(PartType type) - Return a particular part type 
+	double AssignPriority(ResearchFrame target) - Returns an appropriate ResearchPriority
+End Class
+
+Class EntityStateOfArt
+	string EntityId
+	List<ProgressFrame> Frames - A collection of all progress achieved
+End Class
+
+Class ProgressFrame
+	string IdTag
+	bool IsComplete
+	bool IsAccessible
+	bool IsActive
+	string CurrentTechTeam
+	List<ComponentProgrsesLine> Lines
+End Class
+
+Struct ComponentProgressLine
+	bool IsComplete
+	ComponentLine Line
+	int Progress
+End Struct
+
+Class Vote
+	string RawVote
+	Dictionary<TechTeam, ResearchFrame> Result
+	void ProcessIncomingVote(string raw)
+End Class
+
+Class ResearchProcessor
+End Class
+
+Class ResarchResult
+End Class
+
+Class LayoutEngine
+End Class
+	

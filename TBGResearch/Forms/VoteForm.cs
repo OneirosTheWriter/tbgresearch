@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace TBGResearch
+namespace TBGResearch.Forms
 {
-    public partial class Form1 : Form
+    public partial class VoteForm : Form
     {
-        public Form1()
+        public VoteForm()
         {
             InitializeComponent();
         }

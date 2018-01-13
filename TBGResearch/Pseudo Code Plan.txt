@@ -43,13 +43,16 @@ Class Team
 	int Skill
 	TechTreeType Pref1 - The two preferred areas
 	TechTreeType Pref2 - This may be -1 if only one preferred area exists
+	int Experience
+	int Boosts - Number of Boosts currently assigned
+	bool IncrementXP() - Returns true if a Skill Level is gained
 End Class
 
 Class TechTree
 	string Name
 	TechTreeType TechType - The type of this Tech Tree (i.e., Warp, Shields) for Preference matching
 	ResearchFrame Root - The base "Turn of the Century" tech frame
-	List<ResearchFrame> MasterList - The full master list maintained for importing and exporting
+	List<ResearchFrame> MasterFrameList - The full master list maintained for importing and exporting
 	ResearchFrame Find(string idTag) - Get a frame based on the idtag for help iterating
 End Class
 
@@ -57,13 +60,13 @@ Class ResearchFrame
 	string IdTag
 	string Name
 	string Description
+	TechTreeType Tree - For ease of updating Priorities
+	bool IsLandmark - Is this a landmark tech like Isolinear?
 	List<ComponentLine> Lines 
 	List<string> Prereqs - A list of IdTags
 	List<string> LeadsTo - A list of IdTags
-	TechTreeType Tree - For ease of updating Priorities
-	PartType - For updating priorities
+	List<PartType> - For updating priorities, a List to handle multiple Part unlocks
 	string Result - What will be unlocked if Frame is completed
-	bool IsLandmark - Is this a landmark tech like Isolinear?
 End Class
 
 Struct ComponentLine
@@ -71,6 +74,12 @@ Struct ComponentLine
 	string ShortName
 	string FlavourName
 End Struct
+
+Class ComponentProgressLine
+	bool IsComplete
+	ComponentLine Line
+	int Progress
+End Class
 
 Class TechPriority
 	EntityStateOfArt Status - A link to the current state of art so Completed or Inaccessible techs can be marked as 0 Weight
@@ -91,14 +100,8 @@ Class ProgressFrame
 	bool IsAccessible
 	bool IsActive
 	string CurrentTechTeam
-	List<ComponentProgrsesLine> Lines
+	List<ComponentProgressLine> Lines
 End Class
-
-Struct ComponentProgressLine
-	bool IsComplete
-	ComponentLine Line
-	int Progress
-End Struct
 
 Class Vote
 	string RawVote
@@ -114,6 +117,7 @@ Class ResarchResult
 	string EntityId
 	EntityStateOfArt
 	List<ProgressFrame> UpdatedFrames
+	List<Team> LeveledUpTeams
 End Class
 
 Class LayoutEngine

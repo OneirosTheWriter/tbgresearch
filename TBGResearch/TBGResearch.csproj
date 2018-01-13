@@ -32,6 +32,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -45,11 +48,43 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1.cs">
+    <Compile Include="Classes\Entity.cs" />
+    <Compile Include="Classes\EntityStateOfArt.cs" />
+    <Compile Include="Classes\Master.cs" />
+    <Compile Include="Classes\PartType.cs" />
+    <Compile Include="Classes\ResearchFrame.cs" />
+    <Compile Include="Classes\ResearchResult.cs" />
+    <Compile Include="Classes\TechPriority.cs" />
+    <Compile Include="Classes\TechTeam.cs" />
+    <Compile Include="Classes\TechTree.cs" />
+    <Compile Include="Classes\TechTreeType.cs" />
+    <Compile Include="Classes\Vote.cs" />
+    <Compile Include="Forms\EntityForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Forms\EntityForm.Designer.cs">
+      <DependentUpon>EntityForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ResearchForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ResearchForm.Designer.cs">
+      <DependentUpon>ResearchForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\VoteForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\VoteForm.Designer.cs">
+      <DependentUpon>VoteForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Logic\LayoutEngine.cs" />
+    <Compile Include="Logic\ResearchProcessor.cs" />
+    <Compile Include="Logic\VoteTranslator.cs" />
+    <Compile Include="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -62,6 +97,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -78,5 +114,6 @@
   <ItemGroup>
     <Content Include="Pseudo Code Plan.txt" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

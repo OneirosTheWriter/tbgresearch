@@ -48,7 +48,7 @@ namespace TBGResearch.Logic
 
                 turn.UpdateFrames.Add(researcher, outcome.Item1); // Commit our now updated frame to the results
 
-                if (researcher.IncrementXP()) // Next we process xp gain and see if the team has levelled up
+                if (researcher.IncrementXP(target.Tree)) // Next we process xp gain and see if the team has levelled up
                     turn.LevelledUpTeams.Add(researcher); // If yes, make sure we mark that down
             }
             else
@@ -64,6 +64,7 @@ namespace TBGResearch.Logic
             List<ComponentProgressLine> back = new List<ComponentProgressLine>();
             for (int i = 0; i < frame.Lines.Count; ++i)
             {
+                if (frame.Lines[i].WasCompleteInPreviousTurn) continue;
                 int diff = frame.Lines[i].Advance(minProgress);
                 if (diff >= 0)
                 {

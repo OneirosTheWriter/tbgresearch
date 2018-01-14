@@ -19,20 +19,40 @@ namespace TBGResearch.Logic
 
             foreach (Entity nation in Master.MasterEntityList)
             {
+                ResearchResult turn = new ResearchResult() { Parent = nation, EntityId = nation.Name };
+
                 // We only want live assignments, on the off-chance that a team has not been given an assignment, it does not need to be processed.
                 foreach (KeyValuePair<TechTeam, ResearchFrame> allocation in nation.Assignments.Where(x => x.Value != null))
                 {
-                    ProgressFrame liveFrame = nation.Status.Frames.First(x => x.IdTag == allocation.Value.IdTag);
-
-                    // Should this check for Active/Accessible frames, or leave that to the assignment routines?
-
-                    ProcessTeam(allocation.Key, liveFrame, 
-                        BonusCalculator.CalculateEffectiveBonus(nation, allocation.Key, allocation.Value), // Get Admiral/Event Bonuses calculated for us
-                        BonusCalculator.MatchPreference(allocation.Key, allocation.Value)); // And double check the skill match
+                    ManageAllocation(nation, turn, allocation.Key, allocation.Value);
                 }
+
+                researchResults.Add(turn);
             }
 
             return researchResults;
+        }
+
+        private void ManageAllocation(Entity nation, ResearchResult turn, TechTeam researcher, ResearchFrame target)
+        {
+            ProgressFrame liveFrame = nation.Status.Frames.FirstOrDefault(x => x.IdTag == target.IdTag);
+            if (liveFrame != null)
+            {
+
+                // Should this check for Active/Accessible frames, or leave that to the assignment routines?
+
+                Tuple<ProgressFrame, List<String>> outcome =
+                ProcessTeam(researcher, liveFrame,
+                    BonusCalculator.CalculateEffectiveBonus(nation, researcher, target), // Get Admiral/Event Bonuses calculated for us
+                    BonusCalculator.MatchPreference(researcher, target)); // And double check the skill match
+
+                turn.UpdateFrames.Add(researcher, outcome.Item1); // Commit our now updated frame to the results
+
+                if (researcher.IncrementXP()) // Next we process xp gain and see if the team has levelled up
+                    turn.LevelledUpTeams.Add(researcher); // If yes, make sure we mark that down
+            }
+            else
+                throw new ArgumentException("An invalid frame was provided");
         }
 
         private Tuple<ProgressFrame, List<String>> ProcessTeam(TechTeam team, ProgressFrame frame, int bonus, bool matchesSkill)

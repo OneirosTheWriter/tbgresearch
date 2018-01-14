@@ -56,7 +56,15 @@ namespace TBGResearch.Classes
         /// <returns></returns>
         public bool IncrementXP()
         {
-            throw new NotImplementedException();
+            bool isPromoted = false;
+            Experience++;
+            if (Experience > (SkillLevel + 1)) // Rather than store an individual variable, we'll just check against this, which is a quick op anyway
+            {
+                SkillLevel++; // Increment level and reset XP back to 0
+                Experience = 0;
+                isPromoted = true;
+            }
+            return isPromoted;
         }
     }
 }

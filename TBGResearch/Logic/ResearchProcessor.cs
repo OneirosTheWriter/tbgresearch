@@ -26,7 +26,9 @@ namespace TBGResearch.Logic
 
                     // Should this check for Active/Accessible frames, or leave that to the assignment routines?
 
-                    ProcessTeam(allocation.Key, liveFrame, 0, true);
+                    ProcessTeam(allocation.Key, liveFrame, 
+                        BonusCalculator.CalculateEffectiveBonus(nation, allocation.Key, allocation.Value), // Get Admiral/Event Bonuses calculated for us
+                        BonusCalculator.MatchPreference(allocation.Key, allocation.Value)); // And double check the skill match
                 }
             }
 

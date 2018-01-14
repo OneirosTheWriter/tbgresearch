@@ -32,10 +32,23 @@ namespace TBGResearch.Classes
         }
 
         private List<ResearchBonus> _admiralBonuses = new List<ResearchBonus>();
+        /// <summary>
+        /// These are longer-term bonuses from either a national trait, technology, or officer.
+        /// </summary>
         public List<ResearchBonus> AdmiralBonuses
         {
             get { return _admiralBonuses; }
             set { _admiralBonuses = value; }
+        }
+
+        private List<EventBonus> _eventBonuses = new List<EventBonus>();
+        /// <summary>
+        /// These are typically one off bonuses for a specific tag.
+        /// </summary>
+        public List<EventBonus> EventBonuses
+        {
+            get { return _eventBonuses; }
+            set { _eventBonuses = value; }
         }
 
         // === Methods ===
@@ -53,3 +66,4 @@ namespace TBGResearch.Classes
         }
     }
 }
+ 

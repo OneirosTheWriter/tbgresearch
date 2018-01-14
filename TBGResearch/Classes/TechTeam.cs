@@ -24,6 +24,11 @@ namespace TBGResearch.Classes
         public string LogoUrl { get; set; }
 
         /// <summary>
+        /// The current skill level of the Team.
+        /// </summary>
+        public int SkillLevel { get; set; }
+
+        /// <summary>
         /// The first Preferred area of the Team.
         /// </summary>
         public TechTreeType PreferredSkill1 { get; set; }

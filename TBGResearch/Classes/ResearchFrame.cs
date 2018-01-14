@@ -20,6 +20,21 @@ namespace TBGResearch.Classes
         public bool WasComplete;
         public int Progress;
         public ComponentLine Line;
+
+        /// <summary>
+        /// Advances the progress by the specified amount, returns the required additional progress (if negative) or overflow (if positive).
+        /// </summary>
+        public int Advance(int advance)
+        {
+            int max = Line.RequiredResearch;
+            if (Progress + advance >= max)
+            {
+                Progress = max;
+                WasComplete = true;
+            }
+            else Progress += advance;
+            return Progress + advance - max;
+        }
     }
 
     public class ResearchFrame

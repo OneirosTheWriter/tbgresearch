@@ -92,7 +92,9 @@ namespace TBGResearch.Logic
             }
             for (int j = 0; j < inspirationAndBoost; ++j)
             {
-                int r = rand.Next(frame.Lines.Count - rewards.Count - 1);
+                int total = 0;
+                foreach (var kv in remaining) total += kv.Value.Count;
+                int r = rand.Next(total - 1);
                 foreach(var kv in remaining)
                 {
                     if (kv.Value.Count < r) r -= kv.Value.Count;
@@ -136,7 +138,7 @@ namespace TBGResearch.Logic
             while (overflow > 0 && remainingIndices.Count > 0)
             {
                var mnm = remainingIndices.Min();
-               if (mnm.Key > 1 && !remainingIndices.ContainsKey(mnm.Key + 1)) remainingIndices.Add(mnm.Key + 1, new Queue<int>());
+               if (mnm.Key < -1 && !remainingIndices.ContainsKey(mnm.Key + 1)) remainingIndices.Add(mnm.Key + 1, new Queue<int>());
                while (mnm.Value.Count > 0 && overflow > 0)
                {
                    --overflow;

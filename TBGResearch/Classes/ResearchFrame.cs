@@ -17,7 +17,8 @@ namespace TBGResearch.Classes
 
     public class ComponentProgressLine
     {
-        public bool WasComplete;
+        public bool WasCompleteInPreviousTurn;
+        public bool IsComplete;
         public int Progress;
         public ComponentLine Line;
 
@@ -30,7 +31,7 @@ namespace TBGResearch.Classes
             if (Progress + advance >= max)
             {
                 Progress = max;
-                WasComplete = true;
+                IsComplete = true;
             }
             else Progress += advance;
             return Progress + advance - max;

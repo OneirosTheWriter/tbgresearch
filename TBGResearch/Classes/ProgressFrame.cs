@@ -40,6 +40,9 @@ namespace TBGResearch.Classes
         [JsonIgnore]
         public TechTeam CurrentTechTeam { get; set; }
 
+        [JsonIgnore]
+        public ResearchFrame ParentFrame { get; set; }
+
         private List<ComponentProgressLine> _lines = new List<ComponentProgressLine>();
         /// <summary>
         /// Lines that belong to this frame, with progress values.

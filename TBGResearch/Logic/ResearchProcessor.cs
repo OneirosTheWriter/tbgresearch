@@ -9,9 +9,28 @@ namespace TBGResearch.Logic
 {
     public class ResearchProcessor
     {
+        /// <summary>
+        /// The entry point of the processing routine.
+        /// </summary>
+        /// <returns>The list of all research results</returns>
         public List<ResearchResult> ProcessMaster()
         {
-            throw new NotImplementedException();
+            List<ResearchResult> researchResults = new List<ResearchResult>();
+
+            foreach (Entity nation in Master.MasterEntityList)
+            {
+                // We only want live assignments, on the off-chance that a team has not been given an assignment, it does not need to be processed.
+                foreach (KeyValuePair<TechTeam, ResearchFrame> allocation in nation.Assignments.Where(x => x.Value != null))
+                {
+                    ProgressFrame liveFrame = nation.Status.Frames.First(x => x.IdTag == allocation.Value.IdTag);
+
+                    // Should this check for Active/Accessible frames, or leave that to the assignment routines?
+
+                    ProcessTeam(allocation.Key, liveFrame, 0, true);
+                }
+            }
+
+            return researchResults;
         }
 
         private Tuple<ProgressFrame, List<String>> ProcessTeam(TechTeam team, ProgressFrame frame, int bonus, bool matchesSkill)

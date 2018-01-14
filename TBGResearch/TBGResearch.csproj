@@ -79,6 +79,7 @@
     <Compile Include="Forms\VoteForm.Designer.cs">
       <DependentUpon>VoteForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Logic\BonusCalculator.cs" />
     <Compile Include="Logic\LayoutEngine.cs" />
     <Compile Include="Logic\LoadSaveLogic.cs" />
     <Compile Include="Logic\ResearchProcessor.cs" />

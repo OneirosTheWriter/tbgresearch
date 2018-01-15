@@ -48,7 +48,7 @@ namespace TBGResearch.Logic
 
                 turn.UpdateFrames.Add(researcher, outcome.Item1); // Commit our now updated frame to the results
 
-                if (researcher.IncrementXP()) // Next we process xp gain and see if the team has levelled up
+                if (researcher.IncrementXP(target.Tree)) // Next we process xp gain and see if the team has levelled up
                     turn.LevelledUpTeams.Add(researcher); // If yes, make sure we mark that down
             }
             else
@@ -64,6 +64,7 @@ namespace TBGResearch.Logic
             List<ComponentProgressLine> back = new List<ComponentProgressLine>();
             for (int i = 0; i < frame.Lines.Count; ++i)
             {
+                if (frame.Lines[i].WasCompleteInPreviousTurn) continue;
                 int diff = frame.Lines[i].Advance(minProgress);
                 if (diff >= 0)
                 {
@@ -92,7 +93,9 @@ namespace TBGResearch.Logic
             }
             for (int j = 0; j < inspirationAndBoost; ++j)
             {
-                int r = rand.Next(frame.Lines.Count - rewards.Count - 1);
+                int total = 0;
+                foreach (var kv in remaining) total += kv.Value.Count;
+                int r = rand.Next(total - 1);
                 foreach(var kv in remaining)
                 {
                     if (kv.Value.Count < r) r -= kv.Value.Count;
@@ -136,7 +139,7 @@ namespace TBGResearch.Logic
             while (overflow > 0 && remainingIndices.Count > 0)
             {
                var mnm = remainingIndices.Min();
-               if (mnm.Key > 1 && !remainingIndices.ContainsKey(mnm.Key + 1)) remainingIndices.Add(mnm.Key + 1, new Queue<int>());
+               if (mnm.Key < -1 && !remainingIndices.ContainsKey(mnm.Key + 1)) remainingIndices.Add(mnm.Key + 1, new Queue<int>());
                while (mnm.Value.Count > 0 && overflow > 0)
                {
                    --overflow;
